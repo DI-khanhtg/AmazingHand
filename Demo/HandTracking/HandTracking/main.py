@@ -175,44 +175,41 @@ def main():
 
     pa.array([])  # initialize pyarrow array
     cap = cv2.VideoCapture(0)
+    if not cap.isOpened():
+        cap.release()
+        raise RuntimeError("Cannot open webcam 0. Close other camera apps and enable camera access in Windows Settings.")
 
-    with mp_hands.Hands(
-            model_complexity=0,
-            min_detection_confidence=0.5,
-            min_tracking_confidence=0.5) as hands:
-
-
-
-        for event in node:
-
-            event_type = event["type"]
-
-            if event_type == "INPUT":
-                event_id = event["id"]
-
-                if event_id == "tick":
+    try:
+        with mp_hands.Hands(
+                model_complexity=0,
+                min_detection_confidence=0.5,
+                min_tracking_confidence=0.5) as hands:
+            for event in node:
+                event_type = event["type"]
+                if event_type == "INPUT" and event["id"] == "tick":
                     ret, frame = cap.read()
-
                     if not ret:
                         continue
 
                     frame = cv2.flip(frame, 1)
-                    #process
-                    frame,r_res,l_res=process_img(hands,frame)
-
+                    frame, r_res, l_res = process_img(hands, frame)
                     if r_res is not None:
-                        node.send_output('r_hand_pos',pa.array(r_res))
+                        node.send_output('r_hand_pos', pa.array(r_res))
                     if l_res is not None:
-                        node.send_output('l_hand_pos',pa.array(l_res))
-                    # cv2.imshow('MediaPipe Hands', cv2.flip(frame, 1))
+                        node.send_output('l_hand_pos', pa.array(l_res))
+
                     cv2.imshow('MediaPipe Hands', frame)
                     if cv2.waitKey(1) & 0xFF == ord("q"):
                         break
-
-
-            elif event_type == "ERROR":
-                raise RuntimeError(event["error"])
+                elif event_type == "ERROR":
+                    raise RuntimeError(event["error"])
+    finally:
+        cap.release()
+        cv2.destroyAllWindows()
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        pass

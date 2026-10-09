@@ -1,0 +1,1170 @@
+{
+  "baseline": {
+    "speed_deg_s": 20.0,
+    "profile": "linear",
+    "initial": [
+      {
+        "id": 1,
+        "position_deg": 91.99,
+        "goal_deg": 94.92,
+        "error_deg": -2.93,
+        "load": -180,
+        "voltage_V": 4.7,
+        "temperature_C": 34,
+        "torque": 1,
+        "status": 0
+      },
+      {
+        "id": 2,
+        "position_deg": -89.94,
+        "goal_deg": -92.29,
+        "error_deg": 2.34,
+        "load": 150,
+        "voltage_V": 4.5,
+        "temperature_C": 35,
+        "torque": 1,
+        "status": 0
+      },
+      {
+        "id": 3,
+        "position_deg": 82.03,
+        "goal_deg": 84.96,
+        "error_deg": -2.93,
+        "load": -180,
+        "voltage_V": 4.8,
+        "temperature_C": 35,
+        "torque": 1,
+        "status": 0
+      },
+      {
+        "id": 4,
+        "position_deg": -94.92,
+        "goal_deg": -98.14,
+        "error_deg": 3.22,
+        "load": 195,
+        "voltage_V": 4.7,
+        "temperature_C": 36,
+        "torque": 1,
+        "status": 0
+      },
+      {
+        "id": 5,
+        "position_deg": 87.3,
+        "goal_deg": 87.89,
+        "error_deg": -0.59,
+        "load": -60,
+        "voltage_V": 4.8,
+        "temperature_C": 29,
+        "torque": 1,
+        "status": 0
+      },
+      {
+        "id": 6,
+        "position_deg": -84.38,
+        "goal_deg": -85.25,
+        "error_deg": 0.88,
+        "load": 75,
+        "voltage_V": 4.5,
+        "temperature_C": 30,
+        "torque": 1,
+        "status": 0
+      },
+      {
+        "id": 7,
+        "position_deg": 77.05,
+        "goal_deg": 77.93,
+        "error_deg": -0.88,
+        "load": -75,
+        "voltage_V": 4.6,
+        "temperature_C": 28,
+        "torque": 1,
+        "status": 0
+      },
+      {
+        "id": 8,
+        "position_deg": -89.65,
+        "goal_deg": -90.23,
+        "error_deg": 0.59,
+        "load": 0,
+        "voltage_V": 4.7,
+        "temperature_C": 25,
+        "torque": 1,
+        "status": 0
+      }
+    ],
+    "cases": [
+      {
+        "action": "open_all",
+        "status": "PASS",
+        "feedback": [
+          {
+            "id": 1,
+            "position_deg": -63.28,
+            "goal_deg": -64.16,
+            "error_deg": 0.88,
+            "load": 75,
+            "voltage_V": 4.7,
+            "temperature_C": 34,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 2,
+            "position_deg": 65.92,
+            "goal_deg": 66.8,
+            "error_deg": -0.88,
+            "load": -75,
+            "voltage_V": 4.6,
+            "temperature_C": 34,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 3,
+            "position_deg": -62.11,
+            "goal_deg": -63.28,
+            "error_deg": 1.17,
+            "load": 90,
+            "voltage_V": 4.8,
+            "temperature_C": 35,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 4,
+            "position_deg": 49.22,
+            "goal_deg": 49.8,
+            "error_deg": -0.59,
+            "load": 0,
+            "voltage_V": 4.8,
+            "temperature_C": 35,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 5,
+            "position_deg": -38.96,
+            "goal_deg": -39.26,
+            "error_deg": 0.29,
+            "load": 0,
+            "voltage_V": 4.9,
+            "temperature_C": 29,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 6,
+            "position_deg": 40.72,
+            "goal_deg": 41.89,
+            "error_deg": -1.17,
+            "load": -90,
+            "voltage_V": 4.6,
+            "temperature_C": 30,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 7,
+            "position_deg": -46.58,
+            "goal_deg": -47.17,
+            "error_deg": 0.59,
+            "load": 60,
+            "voltage_V": 4.7,
+            "temperature_C": 28,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 8,
+            "position_deg": 34.86,
+            "goal_deg": 34.86,
+            "error_deg": 0.0,
+            "load": 0,
+            "voltage_V": 4.7,
+            "temperature_C": 26,
+            "torque": 1,
+            "status": 0
+          }
+        ],
+        "seconds": 19.891
+      },
+      {
+        "action": "close_all",
+        "status": "PASS",
+        "feedback": [
+          {
+            "id": 1,
+            "position_deg": 92.29,
+            "goal_deg": 94.92,
+            "error_deg": -2.64,
+            "load": -165,
+            "voltage_V": 4.7,
+            "temperature_C": 34,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 2,
+            "position_deg": -89.94,
+            "goal_deg": -92.29,
+            "error_deg": 2.34,
+            "load": 150,
+            "voltage_V": 4.5,
+            "temperature_C": 34,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 3,
+            "position_deg": 81.74,
+            "goal_deg": 84.96,
+            "error_deg": -3.22,
+            "load": -195,
+            "voltage_V": 4.6,
+            "temperature_C": 35,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 4,
+            "position_deg": -94.92,
+            "goal_deg": -98.14,
+            "error_deg": 3.22,
+            "load": 195,
+            "voltage_V": 4.8,
+            "temperature_C": 35,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 5,
+            "position_deg": 87.01,
+            "goal_deg": 87.89,
+            "error_deg": -0.88,
+            "load": -75,
+            "voltage_V": 4.9,
+            "temperature_C": 29,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 6,
+            "position_deg": -84.38,
+            "goal_deg": -85.25,
+            "error_deg": 0.88,
+            "load": 75,
+            "voltage_V": 4.6,
+            "temperature_C": 29,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 7,
+            "position_deg": 77.05,
+            "goal_deg": 77.93,
+            "error_deg": -0.88,
+            "load": -75,
+            "voltage_V": 4.6,
+            "temperature_C": 27,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 8,
+            "position_deg": -89.65,
+            "goal_deg": -90.23,
+            "error_deg": 0.59,
+            "load": 60,
+            "voltage_V": 4.6,
+            "temperature_C": 26,
+            "torque": 1,
+            "status": 0
+          }
+        ],
+        "seconds": 19.382
+      }
+    ]
+  },
+  "updated": {
+    "speed_deg_s": 40.0,
+    "profile": "smooth",
+    "initial": [
+      {
+        "id": 1,
+        "position_deg": 92.58,
+        "goal_deg": 94.92,
+        "error_deg": -2.34,
+        "load": -150,
+        "voltage_V": 4.7,
+        "temperature_C": 34,
+        "torque": 1,
+        "status": 0
+      },
+      {
+        "id": 2,
+        "position_deg": -89.94,
+        "goal_deg": -92.29,
+        "error_deg": 2.34,
+        "load": 150,
+        "voltage_V": 4.5,
+        "temperature_C": 35,
+        "torque": 1,
+        "status": 0
+      },
+      {
+        "id": 3,
+        "position_deg": 81.74,
+        "goal_deg": 84.96,
+        "error_deg": -3.22,
+        "load": -195,
+        "voltage_V": 4.8,
+        "temperature_C": 36,
+        "torque": 1,
+        "status": 0
+      },
+      {
+        "id": 4,
+        "position_deg": -94.92,
+        "goal_deg": -98.14,
+        "error_deg": 3.22,
+        "load": 195,
+        "voltage_V": 4.8,
+        "temperature_C": 36,
+        "torque": 1,
+        "status": 0
+      },
+      {
+        "id": 5,
+        "position_deg": 87.01,
+        "goal_deg": 87.89,
+        "error_deg": -0.88,
+        "load": -60,
+        "voltage_V": 4.9,
+        "temperature_C": 30,
+        "torque": 1,
+        "status": 0
+      },
+      {
+        "id": 6,
+        "position_deg": -84.38,
+        "goal_deg": -85.25,
+        "error_deg": 0.88,
+        "load": 75,
+        "voltage_V": 4.5,
+        "temperature_C": 30,
+        "torque": 1,
+        "status": 0
+      },
+      {
+        "id": 7,
+        "position_deg": 77.05,
+        "goal_deg": 77.93,
+        "error_deg": -0.88,
+        "load": -75,
+        "voltage_V": 4.7,
+        "temperature_C": 28,
+        "torque": 1,
+        "status": 0
+      },
+      {
+        "id": 8,
+        "position_deg": -89.94,
+        "goal_deg": -90.23,
+        "error_deg": 0.29,
+        "load": 0,
+        "voltage_V": 4.6,
+        "temperature_C": 25,
+        "torque": 1,
+        "status": 0
+      }
+    ],
+    "cases": [
+      {
+        "action": "open_all",
+        "status": "PASS",
+        "feedback": [
+          {
+            "id": 1,
+            "position_deg": -62.7,
+            "goal_deg": -64.16,
+            "error_deg": 1.46,
+            "load": 105,
+            "voltage_V": 4.7,
+            "temperature_C": 34,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 2,
+            "position_deg": 65.92,
+            "goal_deg": 66.8,
+            "error_deg": -0.88,
+            "load": -75,
+            "voltage_V": 4.6,
+            "temperature_C": 35,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 3,
+            "position_deg": -61.52,
+            "goal_deg": -63.28,
+            "error_deg": 1.76,
+            "load": 120,
+            "voltage_V": 4.8,
+            "temperature_C": 36,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 4,
+            "position_deg": 48.93,
+            "goal_deg": 49.8,
+            "error_deg": -0.88,
+            "load": -75,
+            "voltage_V": 4.8,
+            "temperature_C": 36,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 5,
+            "position_deg": -38.09,
+            "goal_deg": -39.26,
+            "error_deg": 1.17,
+            "load": 90,
+            "voltage_V": 4.9,
+            "temperature_C": 30,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 6,
+            "position_deg": 40.43,
+            "goal_deg": 41.89,
+            "error_deg": -1.46,
+            "load": -105,
+            "voltage_V": 4.6,
+            "temperature_C": 30,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 7,
+            "position_deg": -46.29,
+            "goal_deg": -47.17,
+            "error_deg": 0.88,
+            "load": 75,
+            "voltage_V": 4.7,
+            "temperature_C": 28,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 8,
+            "position_deg": 34.28,
+            "goal_deg": 34.86,
+            "error_deg": -0.59,
+            "load": 0,
+            "voltage_V": 4.7,
+            "temperature_C": 26,
+            "torque": 1,
+            "status": 0
+          }
+        ],
+        "seconds": 10.499
+      },
+      {
+        "action": "close_all",
+        "status": "PASS",
+        "feedback": [
+          {
+            "id": 1,
+            "position_deg": 92.58,
+            "goal_deg": 94.92,
+            "error_deg": -2.34,
+            "load": -150,
+            "voltage_V": 4.7,
+            "temperature_C": 34,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 2,
+            "position_deg": -90.53,
+            "goal_deg": -92.29,
+            "error_deg": 1.76,
+            "load": 120,
+            "voltage_V": 4.5,
+            "temperature_C": 35,
+            "torque": 1,
+            "status": 1
+          },
+          {
+            "id": 3,
+            "position_deg": 81.74,
+            "goal_deg": 84.96,
+            "error_deg": -3.22,
+            "load": -195,
+            "voltage_V": 4.8,
+            "temperature_C": 36,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 4,
+            "position_deg": -94.92,
+            "goal_deg": -98.14,
+            "error_deg": 3.22,
+            "load": 195,
+            "voltage_V": 4.8,
+            "temperature_C": 36,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 5,
+            "position_deg": 87.3,
+            "goal_deg": 87.89,
+            "error_deg": -0.59,
+            "load": 0,
+            "voltage_V": 4.9,
+            "temperature_C": 30,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 6,
+            "position_deg": -84.38,
+            "goal_deg": -85.25,
+            "error_deg": 0.88,
+            "load": 75,
+            "voltage_V": 4.5,
+            "temperature_C": 30,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 7,
+            "position_deg": 77.05,
+            "goal_deg": 77.93,
+            "error_deg": -0.88,
+            "load": -75,
+            "voltage_V": 4.7,
+            "temperature_C": 28,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 8,
+            "position_deg": -88.77,
+            "goal_deg": -90.23,
+            "error_deg": 1.46,
+            "load": 105,
+            "voltage_V": 4.7,
+            "temperature_C": 26,
+            "torque": 1,
+            "status": 0
+          }
+        ],
+        "seconds": 10.56
+      },
+      {
+        "action": "v_sign",
+        "status": "PASS",
+        "feedback": [
+          {
+            "id": 1,
+            "position_deg": -48.63,
+            "goal_deg": -49.22,
+            "error_deg": 0.59,
+            "load": 60,
+            "voltage_V": 4.7,
+            "temperature_C": 34,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 2,
+            "position_deg": 80.86,
+            "goal_deg": 81.74,
+            "error_deg": -0.88,
+            "load": -75,
+            "voltage_V": 4.5,
+            "temperature_C": 35,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 3,
+            "position_deg": -76.46,
+            "goal_deg": -78.22,
+            "error_deg": 1.76,
+            "load": 120,
+            "voltage_V": 4.8,
+            "temperature_C": 36,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 4,
+            "position_deg": 33.69,
+            "goal_deg": 34.86,
+            "error_deg": -1.17,
+            "load": -90,
+            "voltage_V": 4.8,
+            "temperature_C": 36,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 5,
+            "position_deg": 87.3,
+            "goal_deg": 87.89,
+            "error_deg": -0.59,
+            "load": 0,
+            "voltage_V": 4.9,
+            "temperature_C": 29,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 6,
+            "position_deg": -84.38,
+            "goal_deg": -85.25,
+            "error_deg": 0.88,
+            "load": 75,
+            "voltage_V": 4.6,
+            "temperature_C": 29,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 7,
+            "position_deg": 77.05,
+            "goal_deg": 77.93,
+            "error_deg": -0.88,
+            "load": -75,
+            "voltage_V": 4.7,
+            "temperature_C": 28,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 8,
+            "position_deg": -88.77,
+            "goal_deg": -90.23,
+            "error_deg": 1.46,
+            "load": 105,
+            "voltage_V": 4.6,
+            "temperature_C": 26,
+            "torque": 1,
+            "status": 0
+          }
+        ],
+        "seconds": 11.216
+      },
+      {
+        "action": "raise_index",
+        "status": "PASS",
+        "feedback": [
+          {
+            "id": 1,
+            "position_deg": -62.7,
+            "goal_deg": -64.16,
+            "error_deg": 1.46,
+            "load": 105,
+            "voltage_V": 4.7,
+            "temperature_C": 34,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 2,
+            "position_deg": 67.38,
+            "goal_deg": 66.8,
+            "error_deg": 0.59,
+            "load": 60,
+            "voltage_V": 4.5,
+            "temperature_C": 35,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 3,
+            "position_deg": 82.03,
+            "goal_deg": 84.96,
+            "error_deg": -2.93,
+            "load": -180,
+            "voltage_V": 4.8,
+            "temperature_C": 36,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 4,
+            "position_deg": -95.21,
+            "goal_deg": -98.14,
+            "error_deg": 2.93,
+            "load": 180,
+            "voltage_V": 4.8,
+            "temperature_C": 36,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 5,
+            "position_deg": 87.6,
+            "goal_deg": 87.89,
+            "error_deg": -0.29,
+            "load": 0,
+            "voltage_V": 4.9,
+            "temperature_C": 29,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 6,
+            "position_deg": -84.38,
+            "goal_deg": -85.25,
+            "error_deg": 0.88,
+            "load": 75,
+            "voltage_V": 4.5,
+            "temperature_C": 29,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 7,
+            "position_deg": 77.05,
+            "goal_deg": 77.93,
+            "error_deg": -0.88,
+            "load": -75,
+            "voltage_V": 4.6,
+            "temperature_C": 28,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 8,
+            "position_deg": -88.77,
+            "goal_deg": -90.23,
+            "error_deg": 1.46,
+            "load": 105,
+            "voltage_V": 4.7,
+            "temperature_C": 26,
+            "torque": 1,
+            "status": 0
+          }
+        ],
+        "seconds": 10.747
+      },
+      {
+        "action": "raise_middle",
+        "status": "PASS",
+        "feedback": [
+          {
+            "id": 1,
+            "position_deg": 92.58,
+            "goal_deg": 94.92,
+            "error_deg": -2.34,
+            "load": -150,
+            "voltage_V": 4.7,
+            "temperature_C": 34,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 2,
+            "position_deg": -89.36,
+            "goal_deg": -92.29,
+            "error_deg": 2.93,
+            "load": 180,
+            "voltage_V": 4.5,
+            "temperature_C": 35,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 3,
+            "position_deg": -61.82,
+            "goal_deg": -63.28,
+            "error_deg": 1.46,
+            "load": 105,
+            "voltage_V": 4.8,
+            "temperature_C": 36,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 4,
+            "position_deg": 49.22,
+            "goal_deg": 49.8,
+            "error_deg": -0.59,
+            "load": 0,
+            "voltage_V": 4.8,
+            "temperature_C": 36,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 5,
+            "position_deg": 87.3,
+            "goal_deg": 87.89,
+            "error_deg": -0.59,
+            "load": 0,
+            "voltage_V": 4.9,
+            "temperature_C": 29,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 6,
+            "position_deg": -84.38,
+            "goal_deg": -85.25,
+            "error_deg": 0.88,
+            "load": 75,
+            "voltage_V": 4.5,
+            "temperature_C": 29,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 7,
+            "position_deg": 77.05,
+            "goal_deg": 77.93,
+            "error_deg": -0.88,
+            "load": -75,
+            "voltage_V": 4.6,
+            "temperature_C": 27,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 8,
+            "position_deg": -88.77,
+            "goal_deg": -90.23,
+            "error_deg": 1.46,
+            "load": 105,
+            "voltage_V": 4.7,
+            "temperature_C": 26,
+            "torque": 1,
+            "status": 0
+          }
+        ],
+        "seconds": 10.615
+      },
+      {
+        "action": "raise_ring",
+        "status": "PASS",
+        "feedback": [
+          {
+            "id": 1,
+            "position_deg": 92.58,
+            "goal_deg": 94.92,
+            "error_deg": -2.34,
+            "load": -150,
+            "voltage_V": 4.6,
+            "temperature_C": 34,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 2,
+            "position_deg": -89.65,
+            "goal_deg": -92.29,
+            "error_deg": 2.64,
+            "load": 165,
+            "voltage_V": 4.5,
+            "temperature_C": 35,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 3,
+            "position_deg": 82.32,
+            "goal_deg": 84.96,
+            "error_deg": -2.64,
+            "load": -165,
+            "voltage_V": 4.7,
+            "temperature_C": 36,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 4,
+            "position_deg": -95.21,
+            "goal_deg": -98.14,
+            "error_deg": 2.93,
+            "load": 180,
+            "voltage_V": 4.8,
+            "temperature_C": 35,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 5,
+            "position_deg": -38.38,
+            "goal_deg": -39.26,
+            "error_deg": 0.88,
+            "load": 75,
+            "voltage_V": 4.9,
+            "temperature_C": 29,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 6,
+            "position_deg": 40.14,
+            "goal_deg": 41.89,
+            "error_deg": -1.76,
+            "load": -120,
+            "voltage_V": 4.5,
+            "temperature_C": 29,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 7,
+            "position_deg": 77.05,
+            "goal_deg": 77.93,
+            "error_deg": -0.88,
+            "load": -75,
+            "voltage_V": 4.6,
+            "temperature_C": 27,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 8,
+            "position_deg": -88.77,
+            "goal_deg": -90.23,
+            "error_deg": 1.46,
+            "load": 105,
+            "voltage_V": 4.6,
+            "temperature_C": 26,
+            "torque": 1,
+            "status": 0
+          }
+        ],
+        "seconds": 10.039
+      },
+      {
+        "action": "raise_thumb",
+        "status": "PASS",
+        "feedback": [
+          {
+            "id": 1,
+            "position_deg": 92.58,
+            "goal_deg": 94.92,
+            "error_deg": -2.34,
+            "load": -150,
+            "voltage_V": 4.7,
+            "temperature_C": 34,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 2,
+            "position_deg": -89.65,
+            "goal_deg": -92.29,
+            "error_deg": 2.64,
+            "load": 165,
+            "voltage_V": 4.6,
+            "temperature_C": 34,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 3,
+            "position_deg": 82.32,
+            "goal_deg": 84.96,
+            "error_deg": -2.64,
+            "load": -165,
+            "voltage_V": 4.8,
+            "temperature_C": 36,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 4,
+            "position_deg": -95.21,
+            "goal_deg": -98.14,
+            "error_deg": 2.93,
+            "load": 180,
+            "voltage_V": 4.9,
+            "temperature_C": 35,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 5,
+            "position_deg": 87.01,
+            "goal_deg": 87.89,
+            "error_deg": -0.88,
+            "load": -75,
+            "voltage_V": 4.9,
+            "temperature_C": 29,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 6,
+            "position_deg": -84.67,
+            "goal_deg": -85.25,
+            "error_deg": 0.59,
+            "load": 0,
+            "voltage_V": 4.6,
+            "temperature_C": 29,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 7,
+            "position_deg": -46.29,
+            "goal_deg": -47.17,
+            "error_deg": 0.88,
+            "load": 75,
+            "voltage_V": 4.6,
+            "temperature_C": 28,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 8,
+            "position_deg": 34.28,
+            "goal_deg": 34.86,
+            "error_deg": -0.59,
+            "load": 0,
+            "voltage_V": 4.6,
+            "temperature_C": 26,
+            "torque": 1,
+            "status": 0
+          }
+        ],
+        "seconds": 9.068
+      },
+      {
+        "action": "final_open",
+        "status": "PASS",
+        "feedback": [
+          {
+            "id": 1,
+            "position_deg": -62.7,
+            "goal_deg": -64.16,
+            "error_deg": 1.46,
+            "load": 105,
+            "voltage_V": 4.7,
+            "temperature_C": 34,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 2,
+            "position_deg": 65.33,
+            "goal_deg": 66.8,
+            "error_deg": -1.46,
+            "load": -105,
+            "voltage_V": 4.4,
+            "temperature_C": 34,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 3,
+            "position_deg": -61.52,
+            "goal_deg": -63.28,
+            "error_deg": 1.76,
+            "load": 120,
+            "voltage_V": 4.8,
+            "temperature_C": 35,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 4,
+            "position_deg": 48.93,
+            "goal_deg": 49.8,
+            "error_deg": -0.88,
+            "load": -75,
+            "voltage_V": 4.8,
+            "temperature_C": 35,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 5,
+            "position_deg": -38.09,
+            "goal_deg": -39.26,
+            "error_deg": 1.17,
+            "load": 90,
+            "voltage_V": 4.9,
+            "temperature_C": 29,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 6,
+            "position_deg": 40.72,
+            "goal_deg": 41.89,
+            "error_deg": -1.17,
+            "load": -90,
+            "voltage_V": 4.6,
+            "temperature_C": 29,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 7,
+            "position_deg": -46.0,
+            "goal_deg": -47.17,
+            "error_deg": 1.17,
+            "load": 90,
+            "voltage_V": 4.7,
+            "temperature_C": 27,
+            "torque": 1,
+            "status": 0
+          },
+          {
+            "id": 8,
+            "position_deg": 34.28,
+            "goal_deg": 34.86,
+            "error_deg": -0.59,
+            "load": 0,
+            "voltage_V": 4.7,
+            "temperature_C": 26,
+            "torque": 1,
+            "status": 0
+          }
+        ],
+        "seconds": 10.481
+      }
+    ]
+  },
+  "baseline_stats": {
+    "median_feedback_interval_s": 0.12208843231201172,
+    "max_tracking_error_deg": 4.000000000000012,
+    "max_abs_load": 225,
+    "min_voltage_V": 4.3,
+    "max_temperature_C": 36,
+    "statuses": [
+      0,
+      1
+    ],
+    "movements": 2
+  },
+  "updated_stats": {
+    "median_feedback_interval_s": 0.026551485061645508,
+    "max_tracking_error_deg": 5.991566571685122,
+    "max_abs_load": 255,
+    "min_voltage_V": 4.4,
+    "max_temperature_C": 36,
+    "statuses": [
+      0,
+      1
+    ],
+    "movements": 8
+  },
+  "software_tests_passed": 50,
+  "user_observation": "Nhanh và mượt hơn"
+}

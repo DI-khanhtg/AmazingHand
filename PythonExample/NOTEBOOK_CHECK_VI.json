@@ -1,0 +1,1373 @@
+{
+  "notebook": "C:\\Users\\Admin\\Documents\\AmazingHand\\PythonExample\\AmazingHand_Control.ipynb",
+  "results": [
+    {
+      "code_cell": 1,
+      "source": "from pathlib import Path\nimport sys\nimport importlib.util\n\nPROJECT_ROOT = next(\n    (p for p in (Path.cwd(), *Path.cwd().parents)\n     if (p / \"PythonExample\" / \"AmazingHand_Notebook.py\").is_file()),\n    None,\n)\nif PROJECT_ROOT is None:\n    raise RuntimeError(\"Hãy mở notebook từ thư mục AmazingHand hoặc PythonExample.\")\nprint(f\"Python đang dùng: {sys.executable}\")\nif importlib.util.find_spec(\"rustypot\") is None:\n    raise RuntimeError(\n        \"Kernel hiện tại chưa có rustypot. Chọn kernel AmazingHand (.venv) \"\n        \"hoặc Select Kernel > Python Environments > \"\n        + str(PROJECT_ROOT / \".venv\" / \"Scripts\" / \"python.exe\")\n        + \", rồi chạy lại cell này.\"\n    )\nhelper_path = str(PROJECT_ROOT / \"PythonExample\")\nif helper_path in sys.path:\n    sys.path.remove(helper_path)\nsys.path.insert(0, helper_path)\n\n# Nạp lại theo thứ tự phụ thuộc để kernel không giữ class/hàm của bản cũ.\nimportlib.invalidate_caches()\nfor module_name in (\n    \"AmazingHand_HardwareDemo\",\n    \"AmazingHand_GripCycles\",\n    \"AmazingHand_VSign\",\n    \"AmazingHand_Notebook\",\n):\n    if module_name in sys.modules:\n        importlib.reload(sys.modules[module_name])\n    else:\n        importlib.import_module(module_name)\nnotebook_module = sys.modules[\"AmazingHand_Notebook\"]\nNotebookHand = notebook_module.NotebookHand\nprint(f\"Helper đang dùng: {notebook_module.__file__}\")\n\nPORT = 'COM3'\nSPEED_DEG_S = 20\nOPEN_EXTENSIONS = (67, 58, 37, 35)\nCLOSE_FLEXIONS = (92, 90, 90, 90)\nEND_TOLERANCE_DEG = 4\nDRY_RUN = False\nALLOW_VOLTAGE_WARNING = True\n\nhand = NotebookHand(\n    port=PORT,\n    speed_deg_s=SPEED_DEG_S,\n    open_extensions=OPEN_EXTENSIONS,\n    close_flexions=CLOSE_FLEXIONS,\n    end_tolerance=END_TOLERANCE_DEG,\n    side=\"right\",\n    spread=15,  # Độ tách hai ngón trong dấu V.\n    allow_voltage_warning=ALLOW_VOLTAGE_WARNING,\n    dry_run=DRY_RUN,\n)\nfor row in hand.inspect():\n    print(\n        f\"ID {row['id']}: {row['position_deg']:+.2f}°, \"\n        f\"goal={row['goal_deg']:+.2f}°, error={row['error_deg']:+.2f}°, load={row['load']}, \"\n        f\"{row['voltage_V']:.1f} V, {row['temperature_C']} °C, \"\n        f\"torque={row['torque']}, status={row['status']}\"\n    )\nprint(\"Sẵn sàng. Chọn một cell tư thế bên dưới.\")",
+      "started_utc": "2026-10-09T08:21:40Z",
+      "feedback": [
+        {
+          "id": 1,
+          "position_deg": -48.05,
+          "goal_deg": -48.05,
+          "error_deg": 0.0,
+          "load": 0,
+          "voltage_V": 4.8,
+          "temperature_C": 27,
+          "torque": 0,
+          "status": 0
+        },
+        {
+          "id": 2,
+          "position_deg": 78.81,
+          "goal_deg": 78.81,
+          "error_deg": 0.0,
+          "load": 0,
+          "voltage_V": 4.6,
+          "temperature_C": 28,
+          "torque": 0,
+          "status": 0
+        },
+        {
+          "id": 3,
+          "position_deg": -51.56,
+          "goal_deg": -51.56,
+          "error_deg": 0.0,
+          "load": 0,
+          "voltage_V": 4.9,
+          "temperature_C": 28,
+          "torque": 0,
+          "status": 0
+        },
+        {
+          "id": 4,
+          "position_deg": 13.48,
+          "goal_deg": 13.48,
+          "error_deg": 0.0,
+          "load": 0,
+          "voltage_V": 4.9,
+          "temperature_C": 28,
+          "torque": 0,
+          "status": 0
+        },
+        {
+          "id": 5,
+          "position_deg": 87.3,
+          "goal_deg": 87.3,
+          "error_deg": 0.0,
+          "load": 0,
+          "voltage_V": 5.0,
+          "temperature_C": 26,
+          "torque": 0,
+          "status": 0
+        },
+        {
+          "id": 6,
+          "position_deg": -83.79,
+          "goal_deg": -83.79,
+          "error_deg": 0.0,
+          "load": 0,
+          "voltage_V": 4.6,
+          "temperature_C": 26,
+          "torque": 0,
+          "status": 0
+        },
+        {
+          "id": 7,
+          "position_deg": 76.76,
+          "goal_deg": 76.76,
+          "error_deg": 0.0,
+          "load": 0,
+          "voltage_V": 4.7,
+          "temperature_C": 26,
+          "torque": 0,
+          "status": 0
+        },
+        {
+          "id": 8,
+          "position_deg": -89.65,
+          "goal_deg": -89.65,
+          "error_deg": 0.0,
+          "load": 0,
+          "voltage_V": 4.7,
+          "temperature_C": 26,
+          "torque": 0,
+          "status": 0
+        }
+      ],
+      "status": "PASS",
+      "seconds": 0.17,
+      "stdout": "Python đang dùng: C:\\Users\\Admin\\Documents\\AmazingHand\\.venv\\Scripts\\python.exe\nHelper đang dùng: C:\\Users\\Admin\\Documents\\AmazingHand\\PythonExample\\AmazingHand_Notebook.py\nID 1: -48.05°, goal=-48.05°, error=+0.00°, load=0, 4.7 V, 27 °C, torque=0, status=0\nID 2: +78.81°, goal=+78.81°, error=+0.00°, load=0, 4.6 V, 28 °C, torque=0, status=0\nID 3: -51.56°, goal=-51.56°, error=+0.00°, load=0, 4.9 V, 28 °C, torque=0, status=0\nID 4: +13.48°, goal=+13.48°, error=+0.00°, load=0, 4.9 V, 28 °C, torque=0, status=0\nID 5: +87.30°, goal=+87.30°, error=+0.00°, load=0, 4.9 V, 26 °C, torque=0, status=0\nID 6: -83.79°, goal=-83.79°, error=+0.00°, load=0, 4.6 V, 26 °C, torque=0, status=0\nID 7: +76.76°, goal=+76.76°, error=+0.00°, load=0, 4.7 V, 26 °C, torque=0, status=0\nID 8: -89.65°, goal=-89.65°, error=+0.00°, load=0, 4.7 V, 26 °C, torque=0, status=0\nSẵn sàng. Chọn một cell tư thế bên dưới.\n"
+    },
+    {
+      "code_cell": 2,
+      "source": "hand.open_all()",
+      "started_utc": "2026-10-09T08:21:40Z",
+      "feedback": [
+        {
+          "id": 1,
+          "position_deg": -62.4,
+          "goal_deg": -64.16,
+          "error_deg": 1.76,
+          "load": 120,
+          "voltage_V": 4.7,
+          "temperature_C": 28,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 2,
+          "position_deg": 67.68,
+          "goal_deg": 66.8,
+          "error_deg": 0.88,
+          "load": 75,
+          "voltage_V": 4.6,
+          "temperature_C": 29,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 3,
+          "position_deg": -62.7,
+          "goal_deg": -63.28,
+          "error_deg": 0.59,
+          "load": 0,
+          "voltage_V": 4.8,
+          "temperature_C": 29,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 4,
+          "position_deg": 48.34,
+          "goal_deg": 49.8,
+          "error_deg": -1.46,
+          "load": -105,
+          "voltage_V": 4.8,
+          "temperature_C": 29,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 5,
+          "position_deg": -38.96,
+          "goal_deg": -39.26,
+          "error_deg": 0.29,
+          "load": 0,
+          "voltage_V": 4.9,
+          "temperature_C": 27,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 6,
+          "position_deg": 40.72,
+          "goal_deg": 41.89,
+          "error_deg": -1.17,
+          "load": -90,
+          "voltage_V": 4.6,
+          "temperature_C": 27,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 7,
+          "position_deg": -46.0,
+          "goal_deg": -47.17,
+          "error_deg": 1.17,
+          "load": 90,
+          "voltage_V": 4.6,
+          "temperature_C": 27,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 8,
+          "position_deg": 34.57,
+          "goal_deg": 34.86,
+          "error_deg": -0.29,
+          "load": 0,
+          "voltage_V": 4.7,
+          "temperature_C": 26,
+          "torque": 1,
+          "status": 0
+        }
+      ],
+      "status": "PASS",
+      "seconds": 16.8,
+      "stdout": "State saved: C:\\Users\\Admin\\Documents\\AmazingHand\\.tools\\hardware\\before-grip-cycles-1791534100518289600.json\nAll four fingers together: custom once at 20 deg/s, then hold the pose.\nDIAGNOSTIC: only voltage status bit 0 may pass within 4.0-7.4 V. All other status bits remain fatal. No EEPROM writes.\nOPEN_ALL: simultaneous custom, nominal 6 s; pacing follows servo feedback.\nOPEN_ALL: slowing trajectory to let servos catch up (speed ceiling 20 deg/s).\nID 1: allowing up to 6 degrees of tracking lead to test breakaway; hard cutoff stays 8 degrees.\nID 4: allowing up to 6 degrees of tracking lead to test breakaway; hard cutoff stays 8 degrees.\nOPEN_ALL_CONFIRMED: all eight motors within 1.66 deg of target.\nOPEN_ALL_HOLD_CONFIRMED: all eight motors reached the pose and held it. Torque stays enabled. Visually confirm the finger joints.\n"
+    },
+    {
+      "code_cell": 3,
+      "source": "hand.close_all()",
+      "started_utc": "2026-10-09T08:21:57Z",
+      "feedback": [
+        {
+          "id": 1,
+          "position_deg": 92.58,
+          "goal_deg": 94.92,
+          "error_deg": -2.34,
+          "load": -150,
+          "voltage_V": 4.6,
+          "temperature_C": 29,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 2,
+          "position_deg": -89.94,
+          "goal_deg": -92.29,
+          "error_deg": 2.34,
+          "load": 150,
+          "voltage_V": 4.5,
+          "temperature_C": 29,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 3,
+          "position_deg": 81.74,
+          "goal_deg": 84.96,
+          "error_deg": -3.22,
+          "load": -195,
+          "voltage_V": 4.8,
+          "temperature_C": 29,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 4,
+          "position_deg": -95.21,
+          "goal_deg": -98.14,
+          "error_deg": 2.93,
+          "load": 180,
+          "voltage_V": 4.8,
+          "temperature_C": 29,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 5,
+          "position_deg": 87.6,
+          "goal_deg": 87.89,
+          "error_deg": -0.29,
+          "load": 0,
+          "voltage_V": 4.9,
+          "temperature_C": 27,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 6,
+          "position_deg": -84.38,
+          "goal_deg": -85.25,
+          "error_deg": 0.88,
+          "load": 75,
+          "voltage_V": 4.6,
+          "temperature_C": 27,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 7,
+          "position_deg": 77.34,
+          "goal_deg": 77.93,
+          "error_deg": -0.59,
+          "load": -60,
+          "voltage_V": 4.6,
+          "temperature_C": 27,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 8,
+          "position_deg": -88.77,
+          "goal_deg": -90.23,
+          "error_deg": 1.46,
+          "load": 105,
+          "voltage_V": 4.6,
+          "temperature_C": 27,
+          "torque": 1,
+          "status": 0
+        }
+      ],
+      "status": "PASS",
+      "seconds": 20.28,
+      "stdout": "State saved: C:\\Users\\Admin\\Documents\\AmazingHand\\.tools\\hardware\\before-grip-cycles-1791534117310179200.json\nAll four fingers together: custom once at 20 deg/s, then hold the pose.\nDIAGNOSTIC: only voltage status bit 0 may pass within 4.0-7.4 V. All other status bits remain fatal. No EEPROM writes.\nCLOSE_ALL: simultaneous custom, nominal 8 s; pacing follows servo feedback.\nCLOSE_ALL: slowing trajectory to let servos catch up (speed ceiling 20 deg/s).\nCLOSE_ALL_CONFIRMED: all eight motors within 3.26 deg of target.\nCLOSE_ALL_HOLD_CONFIRMED: all eight motors reached the pose and held it. Torque stays enabled. Visually confirm the finger joints.\n"
+    },
+    {
+      "code_cell": 4,
+      "source": "hand.v_sign()",
+      "started_utc": "2026-10-09T08:22:17Z",
+      "feedback": [
+        {
+          "id": 1,
+          "position_deg": -48.34,
+          "goal_deg": -49.22,
+          "error_deg": 0.88,
+          "load": 75,
+          "voltage_V": 4.7,
+          "temperature_C": 29,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 2,
+          "position_deg": 81.15,
+          "goal_deg": 81.74,
+          "error_deg": -0.59,
+          "load": -75,
+          "voltage_V": 4.5,
+          "temperature_C": 29,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 3,
+          "position_deg": -76.76,
+          "goal_deg": -78.22,
+          "error_deg": 1.46,
+          "load": 105,
+          "voltage_V": 4.8,
+          "temperature_C": 30,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 4,
+          "position_deg": 34.57,
+          "goal_deg": 34.86,
+          "error_deg": -0.29,
+          "load": 0,
+          "voltage_V": 4.8,
+          "temperature_C": 29,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 5,
+          "position_deg": 87.3,
+          "goal_deg": 87.89,
+          "error_deg": -0.59,
+          "load": 0,
+          "voltage_V": 4.9,
+          "temperature_C": 27,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 6,
+          "position_deg": -84.38,
+          "goal_deg": -85.25,
+          "error_deg": 0.88,
+          "load": 75,
+          "voltage_V": 4.6,
+          "temperature_C": 27,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 7,
+          "position_deg": 77.05,
+          "goal_deg": 77.93,
+          "error_deg": -0.88,
+          "load": -75,
+          "voltage_V": 4.6,
+          "temperature_C": 27,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 8,
+          "position_deg": -88.77,
+          "goal_deg": -90.23,
+          "error_deg": 1.46,
+          "load": 105,
+          "voltage_V": 4.7,
+          "temperature_C": 27,
+          "torque": 1,
+          "status": 0
+        }
+      ],
+      "status": "PASS",
+      "seconds": 20.66,
+      "stdout": "State saved: C:\\Users\\Admin\\Documents\\AmazingHand\\.tools\\hardware\\before-grip-cycles-1791534137603604300.json\nAll four fingers together: custom once at 20 deg/s, then hold the pose.\nDIAGNOSTIC: only voltage status bit 0 may pass within 4.0-7.4 V. All other status bits remain fatal. No EEPROM writes.\nV_SIGN: simultaneous custom, nominal 9 s; pacing follows servo feedback.\nV_SIGN: slowing trajectory to let servos catch up (speed ceiling 20 deg/s).\nV_SIGN_CONFIRMED: all eight motors within 1.24 deg of target.\nV_SIGN_HOLD_CONFIRMED: all eight motors reached the pose and held it. Torque stays enabled. Visually confirm the finger joints.\n"
+    },
+    {
+      "code_cell": 5,
+      "source": "hand.raise_finger(\"index\")",
+      "started_utc": "2026-10-09T08:22:38Z",
+      "feedback": [
+        {
+          "id": 1,
+          "position_deg": -64.16,
+          "goal_deg": -64.16,
+          "error_deg": 0.0,
+          "load": 0,
+          "voltage_V": 4.7,
+          "temperature_C": 29,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 2,
+          "position_deg": 67.09,
+          "goal_deg": 66.8,
+          "error_deg": 0.29,
+          "load": 0,
+          "voltage_V": 4.5,
+          "temperature_C": 29,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 3,
+          "position_deg": 82.03,
+          "goal_deg": 84.96,
+          "error_deg": -2.93,
+          "load": -180,
+          "voltage_V": 4.8,
+          "temperature_C": 30,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 4,
+          "position_deg": -94.92,
+          "goal_deg": -98.14,
+          "error_deg": 3.22,
+          "load": 195,
+          "voltage_V": 4.8,
+          "temperature_C": 30,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 5,
+          "position_deg": 87.6,
+          "goal_deg": 87.89,
+          "error_deg": -0.29,
+          "load": 0,
+          "voltage_V": 4.9,
+          "temperature_C": 27,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 6,
+          "position_deg": -84.38,
+          "goal_deg": -85.25,
+          "error_deg": 0.88,
+          "load": 75,
+          "voltage_V": 4.6,
+          "temperature_C": 27,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 7,
+          "position_deg": 77.34,
+          "goal_deg": 77.93,
+          "error_deg": -0.59,
+          "load": -60,
+          "voltage_V": 4.6,
+          "temperature_C": 27,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 8,
+          "position_deg": -88.77,
+          "goal_deg": -90.23,
+          "error_deg": 1.46,
+          "load": 105,
+          "voltage_V": 4.7,
+          "temperature_C": 27,
+          "torque": 1,
+          "status": 0
+        }
+      ],
+      "status": "PASS",
+      "seconds": 21.48,
+      "stdout": "State saved: C:\\Users\\Admin\\Documents\\AmazingHand\\.tools\\hardware\\before-grip-cycles-1791534158252630000.json\nAll four fingers together: custom once at 20 deg/s, then hold the pose.\nDIAGNOSTIC: only voltage status bit 0 may pass within 4.0-7.4 V. All other status bits remain fatal. No EEPROM writes.\nRAISE_INDEX: simultaneous custom, nominal 8 s; pacing follows servo feedback.\nRAISE_INDEX: slowing trajectory to let servos catch up (speed ceiling 20 deg/s).\nID 1: allowing up to 6 degrees of tracking lead to test breakaway; hard cutoff stays 8 degrees.\nRAISE_INDEX_CONFIRMED: all eight motors within 3.08 deg of target.\nRAISE_INDEX_HOLD_CONFIRMED: all eight motors reached the pose and held it. Torque stays enabled. Visually confirm the finger joints.\n"
+    },
+    {
+      "code_cell": 6,
+      "source": "hand.raise_finger(\"middle\")",
+      "started_utc": "2026-10-09T08:22:59Z",
+      "feedback": [
+        {
+          "id": 1,
+          "position_deg": 92.29,
+          "goal_deg": 94.92,
+          "error_deg": -2.64,
+          "load": -165,
+          "voltage_V": 4.7,
+          "temperature_C": 29,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 2,
+          "position_deg": -89.65,
+          "goal_deg": -92.29,
+          "error_deg": 2.64,
+          "load": 165,
+          "voltage_V": 4.5,
+          "temperature_C": 30,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 3,
+          "position_deg": -61.52,
+          "goal_deg": -63.28,
+          "error_deg": 1.76,
+          "load": 120,
+          "voltage_V": 4.8,
+          "temperature_C": 30,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 4,
+          "position_deg": 48.93,
+          "goal_deg": 49.8,
+          "error_deg": -0.88,
+          "load": -75,
+          "voltage_V": 4.9,
+          "temperature_C": 30,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 5,
+          "position_deg": 87.3,
+          "goal_deg": 87.89,
+          "error_deg": -0.59,
+          "load": 0,
+          "voltage_V": 4.9,
+          "temperature_C": 27,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 6,
+          "position_deg": -84.38,
+          "goal_deg": -85.25,
+          "error_deg": 0.88,
+          "load": 75,
+          "voltage_V": 4.6,
+          "temperature_C": 27,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 7,
+          "position_deg": 77.05,
+          "goal_deg": 77.93,
+          "error_deg": -0.88,
+          "load": -75,
+          "voltage_V": 4.6,
+          "temperature_C": 27,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 8,
+          "position_deg": -88.77,
+          "goal_deg": -90.23,
+          "error_deg": 1.46,
+          "load": 105,
+          "voltage_V": 4.7,
+          "temperature_C": 27,
+          "torque": 1,
+          "status": 0
+        }
+      ],
+      "status": "PASS",
+      "seconds": 19.3,
+      "stdout": "State saved: C:\\Users\\Admin\\Documents\\AmazingHand\\.tools\\hardware\\before-grip-cycles-1791534179741794400.json\nAll four fingers together: custom once at 20 deg/s, then hold the pose.\nDIAGNOSTIC: only voltage status bit 0 may pass within 4.0-7.4 V. All other status bits remain fatal. No EEPROM writes.\nRAISE_MIDDLE: simultaneous custom, nominal 8 s; pacing follows servo feedback.\nRAISE_MIDDLE: slowing trajectory to let servos catch up (speed ceiling 20 deg/s).\nRAISE_MIDDLE_CONFIRMED: all eight motors within 2.42 deg of target.\nRAISE_MIDDLE_HOLD_CONFIRMED: all eight motors reached the pose and held it. Torque stays enabled. Visually confirm the finger joints.\n"
+    },
+    {
+      "code_cell": 7,
+      "source": "hand.raise_finger(\"ring\")",
+      "started_utc": "2026-10-09T08:23:18Z",
+      "feedback": [
+        {
+          "id": 1,
+          "position_deg": 92.58,
+          "goal_deg": 94.92,
+          "error_deg": -2.34,
+          "load": -150,
+          "voltage_V": 4.7,
+          "temperature_C": 29,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 2,
+          "position_deg": -89.94,
+          "goal_deg": -92.29,
+          "error_deg": 2.34,
+          "load": 150,
+          "voltage_V": 4.5,
+          "temperature_C": 30,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 3,
+          "position_deg": 82.03,
+          "goal_deg": 84.96,
+          "error_deg": -2.93,
+          "load": -180,
+          "voltage_V": 4.8,
+          "temperature_C": 30,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 4,
+          "position_deg": -94.92,
+          "goal_deg": -98.14,
+          "error_deg": 3.22,
+          "load": 195,
+          "voltage_V": 4.8,
+          "temperature_C": 30,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 5,
+          "position_deg": -40.14,
+          "goal_deg": -39.26,
+          "error_deg": -0.88,
+          "load": -75,
+          "voltage_V": 4.8,
+          "temperature_C": 27,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 6,
+          "position_deg": 41.31,
+          "goal_deg": 41.89,
+          "error_deg": -0.59,
+          "load": 0,
+          "voltage_V": 4.5,
+          "temperature_C": 27,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 7,
+          "position_deg": 77.34,
+          "goal_deg": 77.93,
+          "error_deg": -0.59,
+          "load": -60,
+          "voltage_V": 4.6,
+          "temperature_C": 26,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 8,
+          "position_deg": -88.77,
+          "goal_deg": -90.23,
+          "error_deg": 1.46,
+          "load": 105,
+          "voltage_V": 4.7,
+          "temperature_C": 27,
+          "torque": 1,
+          "status": 0
+        }
+      ],
+      "status": "PASS",
+      "seconds": 18.7,
+      "stdout": "State saved: C:\\Users\\Admin\\Documents\\AmazingHand\\.tools\\hardware\\before-grip-cycles-1791534199033230100.json\nAll four fingers together: custom once at 20 deg/s, then hold the pose.\nDIAGNOSTIC: only voltage status bit 0 may pass within 4.0-7.4 V. All other status bits remain fatal. No EEPROM writes.\nRAISE_RING: simultaneous custom, nominal 7 s; pacing follows servo feedback.\nRAISE_RING: slowing trajectory to let servos catch up (speed ceiling 20 deg/s).\nRAISE_RING_CONFIRMED: all eight motors within 3.26 deg of target.\nRAISE_RING_HOLD_CONFIRMED: all eight motors reached the pose and held it. Torque stays enabled. Visually confirm the finger joints.\n"
+    },
+    {
+      "code_cell": 8,
+      "source": "hand.raise_finger(\"thumb\")",
+      "started_utc": "2026-10-09T08:23:37Z",
+      "feedback": [
+        {
+          "id": 1,
+          "position_deg": 92.58,
+          "goal_deg": 94.92,
+          "error_deg": -2.34,
+          "load": -150,
+          "voltage_V": 4.7,
+          "temperature_C": 29,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 2,
+          "position_deg": -89.94,
+          "goal_deg": -92.29,
+          "error_deg": 2.34,
+          "load": 150,
+          "voltage_V": 4.5,
+          "temperature_C": 30,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 3,
+          "position_deg": 82.03,
+          "goal_deg": 84.96,
+          "error_deg": -2.93,
+          "load": -180,
+          "voltage_V": 4.8,
+          "temperature_C": 30,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 4,
+          "position_deg": -94.92,
+          "goal_deg": -98.14,
+          "error_deg": 3.22,
+          "load": 195,
+          "voltage_V": 4.8,
+          "temperature_C": 30,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 5,
+          "position_deg": 87.6,
+          "goal_deg": 87.89,
+          "error_deg": -0.29,
+          "load": 0,
+          "voltage_V": 4.8,
+          "temperature_C": 27,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 6,
+          "position_deg": -84.96,
+          "goal_deg": -85.25,
+          "error_deg": 0.29,
+          "load": 0,
+          "voltage_V": 4.6,
+          "temperature_C": 27,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 7,
+          "position_deg": -46.0,
+          "goal_deg": -47.17,
+          "error_deg": 1.17,
+          "load": 90,
+          "voltage_V": 4.6,
+          "temperature_C": 27,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 8,
+          "position_deg": 35.16,
+          "goal_deg": 34.86,
+          "error_deg": 0.29,
+          "load": 0,
+          "voltage_V": 4.6,
+          "temperature_C": 27,
+          "torque": 1,
+          "status": 0
+        }
+      ],
+      "status": "PASS",
+      "seconds": 15.83,
+      "stdout": "State saved: C:\\Users\\Admin\\Documents\\AmazingHand\\.tools\\hardware\\before-grip-cycles-1791534217739100800.json\nAll four fingers together: custom once at 20 deg/s, then hold the pose.\nDIAGNOSTIC: only voltage status bit 0 may pass within 4.0-7.4 V. All other status bits remain fatal. No EEPROM writes.\nRAISE_THUMB: simultaneous custom, nominal 6 s; pacing follows servo feedback.\nRAISE_THUMB: slowing trajectory to let servos catch up (speed ceiling 20 deg/s).\nRAISE_THUMB_CONFIRMED: all eight motors within 3.08 deg of target.\nRAISE_THUMB_HOLD_CONFIRMED: all eight motors reached the pose and held it. Torque stays enabled. Visually confirm the finger joints.\n"
+    },
+    {
+      "code_cell": 9,
+      "source": "hand.test_finger(\"index\", \"open\")",
+      "started_utc": "2026-10-09T08:23:53Z",
+      "feedback": [
+        {
+          "id": 1,
+          "position_deg": -63.28,
+          "goal_deg": -64.16,
+          "error_deg": 0.88,
+          "load": 75,
+          "voltage_V": 4.7,
+          "temperature_C": 30,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 2,
+          "position_deg": 65.92,
+          "goal_deg": 66.8,
+          "error_deg": -0.88,
+          "load": -75,
+          "voltage_V": 4.5,
+          "temperature_C": 30,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 3,
+          "position_deg": 82.03,
+          "goal_deg": 84.96,
+          "error_deg": -2.93,
+          "load": -180,
+          "voltage_V": 4.8,
+          "temperature_C": 31,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 4,
+          "position_deg": -94.92,
+          "goal_deg": -98.14,
+          "error_deg": 3.22,
+          "load": 195,
+          "voltage_V": 4.8,
+          "temperature_C": 31,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 5,
+          "position_deg": 87.3,
+          "goal_deg": 87.89,
+          "error_deg": -0.59,
+          "load": 0,
+          "voltage_V": 4.9,
+          "temperature_C": 27,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 6,
+          "position_deg": -84.96,
+          "goal_deg": -85.25,
+          "error_deg": 0.29,
+          "load": 0,
+          "voltage_V": 4.6,
+          "temperature_C": 26,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 7,
+          "position_deg": -46.58,
+          "goal_deg": -47.17,
+          "error_deg": 0.59,
+          "load": 0,
+          "voltage_V": 4.6,
+          "temperature_C": 27,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 8,
+          "position_deg": 35.16,
+          "goal_deg": 34.86,
+          "error_deg": 0.29,
+          "load": 0,
+          "voltage_V": 4.7,
+          "temperature_C": 26,
+          "torque": 1,
+          "status": 0
+        }
+      ],
+      "status": "PASS",
+      "seconds": 42.74,
+      "stdout": "Starting state saved: C:\\Users\\Admin\\Documents\\AmazingHand\\.tools\\hardware\\before-open-1791534233548853700.json\nPose open: moving one finger at a time at 4 deg/s. Ctrl+C stops the active finger.\nFinger 1: target [-64.0, 67.0] deg\nID 1: position=-63.28 deg, target_error=+0.72 deg\nID 2: position=65.92 deg, target_error=-1.08 deg\nOPEN_FINGER_CONFIRMED: selected servos reached the requested targets within 4 degrees. This verifies motor positions; visually check finger straightness. Torque stays enabled to hold the pose.\n[{'id': 1, 'position_deg': -63.28, 'goal_deg': -64.16, 'error_deg': 0.88, 'load': 75, 'voltage_V': 4.7, 'temperature_C': 30, 'torque': 1, 'status': 0}, {'id': 2, 'position_deg': 65.92, 'goal_deg': 66.8, 'error_deg': -0.88, 'load': -75, 'voltage_V': 4.4, 'temperature_C': 30, 'torque': 1, 'status': 1}]\n"
+    },
+    {
+      "code_cell": 10,
+      "source": "hand.test_finger(\"index\", \"close\")",
+      "started_utc": "2026-10-09T08:24:36Z",
+      "feedback": [
+        {
+          "id": 1,
+          "position_deg": 92.58,
+          "goal_deg": 94.92,
+          "error_deg": -2.34,
+          "load": -150,
+          "voltage_V": 4.7,
+          "temperature_C": 30,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 2,
+          "position_deg": -90.53,
+          "goal_deg": -92.29,
+          "error_deg": 1.76,
+          "load": 120,
+          "voltage_V": 4.5,
+          "temperature_C": 30,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 3,
+          "position_deg": 82.03,
+          "goal_deg": 84.96,
+          "error_deg": -2.93,
+          "load": -180,
+          "voltage_V": 4.8,
+          "temperature_C": 32,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 4,
+          "position_deg": -94.92,
+          "goal_deg": -98.14,
+          "error_deg": 3.22,
+          "load": 195,
+          "voltage_V": 4.9,
+          "temperature_C": 33,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 5,
+          "position_deg": 87.6,
+          "goal_deg": 87.89,
+          "error_deg": -0.29,
+          "load": 0,
+          "voltage_V": 4.9,
+          "temperature_C": 26,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 6,
+          "position_deg": -84.96,
+          "goal_deg": -85.25,
+          "error_deg": 0.29,
+          "load": 0,
+          "voltage_V": 4.6,
+          "temperature_C": 26,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 7,
+          "position_deg": -46.58,
+          "goal_deg": -47.17,
+          "error_deg": 0.59,
+          "load": 0,
+          "voltage_V": 4.6,
+          "temperature_C": 26,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 8,
+          "position_deg": 35.16,
+          "goal_deg": 34.86,
+          "error_deg": 0.29,
+          "load": 0,
+          "voltage_V": 4.7,
+          "temperature_C": 26,
+          "torque": 1,
+          "status": 0
+        }
+      ],
+      "status": "PASS",
+      "seconds": 43.03,
+      "stdout": "Starting state saved: C:\\Users\\Admin\\Documents\\AmazingHand\\.tools\\hardware\\before-close-1791534276271755000.json\nPose close: moving one finger at a time at 4 deg/s. Ctrl+C stops the active finger.\nFinger 1: target [95.0, -92.0] deg\nID 1: position=92.58 deg, target_error=-2.42 deg\nID 2: position=-90.53 deg, target_error=+1.47 deg\nPOSE_CONFIRMED: selected servos reached the requested targets within 4 degrees. This verifies motor positions; visually check finger straightness. Torque stays enabled to hold the pose.\n[{'id': 1, 'position_deg': 92.58, 'goal_deg': 94.92, 'error_deg': -2.34, 'load': -150, 'voltage_V': 4.7, 'temperature_C': 30, 'torque': 1, 'status': 0}, {'id': 2, 'position_deg': -90.53, 'goal_deg': -92.29, 'error_deg': 1.76, 'load': 120, 'voltage_V': 4.5, 'temperature_C': 30, 'torque': 1, 'status': 0}]\n"
+    },
+    {
+      "code_cell": 11,
+      "source": "hand.test_finger(\"middle\", \"open\")",
+      "started_utc": "2026-10-09T08:25:19Z",
+      "feedback": [
+        {
+          "id": 1,
+          "position_deg": 92.58,
+          "goal_deg": 94.92,
+          "error_deg": -2.34,
+          "load": -150,
+          "voltage_V": 4.7,
+          "temperature_C": 31,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 2,
+          "position_deg": -90.53,
+          "goal_deg": -92.29,
+          "error_deg": 1.76,
+          "load": 120,
+          "voltage_V": 4.5,
+          "temperature_C": 31,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 3,
+          "position_deg": -61.82,
+          "goal_deg": -63.28,
+          "error_deg": 1.46,
+          "load": 105,
+          "voltage_V": 4.8,
+          "temperature_C": 32,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 4,
+          "position_deg": 49.51,
+          "goal_deg": 49.8,
+          "error_deg": -0.29,
+          "load": 0,
+          "voltage_V": 4.9,
+          "temperature_C": 32,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 5,
+          "position_deg": 87.6,
+          "goal_deg": 87.89,
+          "error_deg": -0.29,
+          "load": 0,
+          "voltage_V": 4.9,
+          "temperature_C": 26,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 6,
+          "position_deg": -84.96,
+          "goal_deg": -85.25,
+          "error_deg": 0.29,
+          "load": 0,
+          "voltage_V": 4.6,
+          "temperature_C": 26,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 7,
+          "position_deg": -46.58,
+          "goal_deg": -47.17,
+          "error_deg": 0.59,
+          "load": 0,
+          "voltage_V": 4.7,
+          "temperature_C": 26,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 8,
+          "position_deg": 35.16,
+          "goal_deg": 34.86,
+          "error_deg": 0.29,
+          "load": 0,
+          "voltage_V": 4.7,
+          "temperature_C": 26,
+          "torque": 1,
+          "status": 0
+        }
+      ],
+      "status": "PASS",
+      "seconds": 39.56,
+      "stdout": "Starting state saved: C:\\Users\\Admin\\Documents\\AmazingHand\\.tools\\hardware\\before-open-1791534319319860300.json\nPose open: moving one finger at a time at 4 deg/s. Ctrl+C stops the active finger.\nFinger 2: target [-63.0, 50.0] deg\nID 3: position=-61.82 deg, target_error=+1.18 deg\nID 4: position=49.51 deg, target_error=-0.49 deg\nOPEN_FINGER_CONFIRMED: selected servos reached the requested targets within 4 degrees. This verifies motor positions; visually check finger straightness. Torque stays enabled to hold the pose.\n[{'id': 3, 'position_deg': -61.82, 'goal_deg': -63.28, 'error_deg': 1.46, 'load': 105, 'voltage_V': 4.8, 'temperature_C': 32, 'torque': 1, 'status': 0}, {'id': 4, 'position_deg': 49.51, 'goal_deg': 49.8, 'error_deg': -0.29, 'load': 0, 'voltage_V': 4.8, 'temperature_C': 32, 'torque': 1, 'status': 0}]\n"
+    },
+    {
+      "code_cell": 12,
+      "source": "hand.test_finger(\"middle\", \"close\")",
+      "started_utc": "2026-10-09T08:25:58Z",
+      "feedback": [
+        {
+          "id": 1,
+          "position_deg": 92.58,
+          "goal_deg": 94.92,
+          "error_deg": -2.34,
+          "load": -150,
+          "voltage_V": 4.7,
+          "temperature_C": 31,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 2,
+          "position_deg": -90.53,
+          "goal_deg": -92.29,
+          "error_deg": 1.76,
+          "load": 120,
+          "voltage_V": 4.5,
+          "temperature_C": 31,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 3,
+          "position_deg": 81.45,
+          "goal_deg": 84.96,
+          "error_deg": -3.52,
+          "load": -210,
+          "voltage_V": 4.8,
+          "temperature_C": 32,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 4,
+          "position_deg": -94.92,
+          "goal_deg": -98.14,
+          "error_deg": 3.22,
+          "load": 195,
+          "voltage_V": 4.8,
+          "temperature_C": 32,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 5,
+          "position_deg": 87.3,
+          "goal_deg": 87.89,
+          "error_deg": -0.59,
+          "load": 0,
+          "voltage_V": 4.9,
+          "temperature_C": 26,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 6,
+          "position_deg": -84.96,
+          "goal_deg": -85.25,
+          "error_deg": 0.29,
+          "load": 0,
+          "voltage_V": 4.5,
+          "temperature_C": 26,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 7,
+          "position_deg": -46.58,
+          "goal_deg": -47.17,
+          "error_deg": 0.59,
+          "load": 0,
+          "voltage_V": 4.6,
+          "temperature_C": 26,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 8,
+          "position_deg": 35.16,
+          "goal_deg": 34.86,
+          "error_deg": 0.29,
+          "load": 0,
+          "voltage_V": 4.7,
+          "temperature_C": 26,
+          "torque": 1,
+          "status": 0
+        }
+      ],
+      "status": "PASS",
+      "seconds": 39.66,
+      "stdout": "Starting state saved: C:\\Users\\Admin\\Documents\\AmazingHand\\.tools\\hardware\\before-close-1791534358889708800.json\nPose close: moving one finger at a time at 4 deg/s. Ctrl+C stops the active finger.\nFinger 2: target [85.0, -98.0] deg\nID 3: position=81.45 deg, target_error=-3.55 deg\nID 4: position=-94.92 deg, target_error=+3.08 deg\nPOSE_CONFIRMED: selected servos reached the requested targets within 4 degrees. This verifies motor positions; visually check finger straightness. Torque stays enabled to hold the pose.\n[{'id': 3, 'position_deg': 81.45, 'goal_deg': 84.96, 'error_deg': -3.52, 'load': -210, 'voltage_V': 4.8, 'temperature_C': 32, 'torque': 1, 'status': 0}, {'id': 4, 'position_deg': -94.92, 'goal_deg': -98.14, 'error_deg': 3.22, 'load': 195, 'voltage_V': 4.8, 'temperature_C': 32, 'torque': 1, 'status': 0}]\n"
+    },
+    {
+      "code_cell": 13,
+      "source": "hand.release()",
+      "started_utc": "2026-10-09T08:26:38Z",
+      "feedback": [
+        {
+          "id": 1,
+          "position_deg": 92.58,
+          "goal_deg": 92.58,
+          "error_deg": 0.0,
+          "load": 0,
+          "voltage_V": 4.8,
+          "temperature_C": 31,
+          "torque": 0,
+          "status": 0
+        },
+        {
+          "id": 2,
+          "position_deg": -90.53,
+          "goal_deg": -90.53,
+          "error_deg": 0.0,
+          "load": 0,
+          "voltage_V": 4.6,
+          "temperature_C": 31,
+          "torque": 0,
+          "status": 0
+        },
+        {
+          "id": 3,
+          "position_deg": 81.45,
+          "goal_deg": 81.45,
+          "error_deg": 0.0,
+          "load": 0,
+          "voltage_V": 4.9,
+          "temperature_C": 32,
+          "torque": 0,
+          "status": 0
+        },
+        {
+          "id": 4,
+          "position_deg": -94.92,
+          "goal_deg": -94.92,
+          "error_deg": 0.0,
+          "load": 0,
+          "voltage_V": 4.9,
+          "temperature_C": 32,
+          "torque": 0,
+          "status": 0
+        },
+        {
+          "id": 5,
+          "position_deg": 87.6,
+          "goal_deg": 87.6,
+          "error_deg": 0.0,
+          "load": 0,
+          "voltage_V": 5.0,
+          "temperature_C": 26,
+          "torque": 0,
+          "status": 0
+        },
+        {
+          "id": 6,
+          "position_deg": -84.96,
+          "goal_deg": -84.96,
+          "error_deg": 0.0,
+          "load": 0,
+          "voltage_V": 4.7,
+          "temperature_C": 26,
+          "torque": 0,
+          "status": 0
+        },
+        {
+          "id": 7,
+          "position_deg": -46.58,
+          "goal_deg": -46.58,
+          "error_deg": 0.0,
+          "load": 0,
+          "voltage_V": 4.7,
+          "temperature_C": 26,
+          "torque": 0,
+          "status": 0
+        },
+        {
+          "id": 8,
+          "position_deg": 34.86,
+          "goal_deg": 34.86,
+          "error_deg": 0.0,
+          "load": 0,
+          "voltage_V": 4.7,
+          "temperature_C": 26,
+          "torque": 0,
+          "status": 0
+        }
+      ],
+      "status": "PASS",
+      "seconds": 0.09,
+      "stdout": "Đã nhả torque cả 8 servo và đóng cổng kết nối.\n"
+    },
+    {
+      "code_cell": "final_open",
+      "status": "PASS",
+      "feedback": [
+        {
+          "id": 1,
+          "position_deg": -62.99,
+          "goal_deg": -64.16,
+          "error_deg": 1.17,
+          "load": 90,
+          "voltage_V": 4.7,
+          "temperature_C": 31,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 2,
+          "position_deg": 65.92,
+          "goal_deg": 66.8,
+          "error_deg": -0.88,
+          "load": -75,
+          "voltage_V": 4.6,
+          "temperature_C": 31,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 3,
+          "position_deg": -61.52,
+          "goal_deg": -63.28,
+          "error_deg": 1.76,
+          "load": 120,
+          "voltage_V": 4.8,
+          "temperature_C": 32,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 4,
+          "position_deg": 49.22,
+          "goal_deg": 49.8,
+          "error_deg": -0.59,
+          "load": -60,
+          "voltage_V": 4.8,
+          "temperature_C": 31,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 5,
+          "position_deg": -38.96,
+          "goal_deg": -39.26,
+          "error_deg": 0.29,
+          "load": 0,
+          "voltage_V": 4.9,
+          "temperature_C": 27,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 6,
+          "position_deg": 40.72,
+          "goal_deg": 41.89,
+          "error_deg": -1.17,
+          "load": -90,
+          "voltage_V": 4.6,
+          "temperature_C": 27,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 7,
+          "position_deg": -46.58,
+          "goal_deg": -47.17,
+          "error_deg": 0.59,
+          "load": 0,
+          "voltage_V": 4.7,
+          "temperature_C": 26,
+          "torque": 1,
+          "status": 0
+        },
+        {
+          "id": 8,
+          "position_deg": 35.16,
+          "goal_deg": 34.86,
+          "error_deg": 0.29,
+          "load": 0,
+          "voltage_V": 4.7,
+          "temperature_C": 26,
+          "torque": 1,
+          "status": 0
+        }
+      ]
+    }
+  ]
+}

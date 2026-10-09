@@ -16,7 +16,7 @@ nodes:
       tick: dora/timer/millis/2
       tick_ctrl: dora/timer/millis/10
     outputs:
-      - mj_joints_pos
+      - mj_r_joints_pos
 
   - id: l_hand_simulation
     build: pip install -e AHSimulation
@@ -26,4 +26,4 @@ nodes:
       tick: dora/timer/millis/2
       tick_ctrl: dora/timer/millis/10
     outputs:
-      - mj_joints_pos
+      - mj_l_joints_pos

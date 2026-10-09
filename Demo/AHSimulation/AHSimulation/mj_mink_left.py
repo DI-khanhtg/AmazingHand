@@ -16,7 +16,8 @@ from mink.contrib import TeleopMocap
 from pathlib import Path
 import numpy as np
 
-ROOT_PATH = Path(os.path.dirname(os.path.abspath(__file__))).parent
+# Dora uses Windows extended paths; MuJoCo needs a regular native path.
+ROOT_PATH = Path(os.path.abspath(__file__).removeprefix("\\\\?\\")).parent
 
 
 class Client:
@@ -27,7 +28,7 @@ class Client:
 
 
         self.model = mujoco.MjModel.from_xml_path(
-            f"{ROOT_PATH}/AHSimulation/AH_Left/mjcf/scene.xml"
+            str(ROOT_PATH / "AH_Left" / "mjcf" / "scene.xml")
         )
         # self.data=mujoco.MjData(self.model)
 
@@ -252,8 +253,6 @@ class Client:
                         "An error occurred in the dataflow: " + event["error"],
                     )
 
-            self.node.send_output("end", pa.array([]))
-
     def pull_position(self, node, metadata):
         """TODO: Add docstring."""
 
@@ -320,4 +319,7 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        pass

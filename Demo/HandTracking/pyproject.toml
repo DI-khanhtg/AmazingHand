@@ -3,13 +3,23 @@ name = "HandTracking"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.9,<=3.12"
+requires-python = ">=3.9,<3.13"
 dependencies = [
     "dora-rs>=0.3.11,<=0.3.13",
     "loop-rate-limiters>=1.1.2",
     "mediapipe>=0.10.14,<=0.10.15",
-    "opencv-python"
+    "opencv-contrib-python>=4.8,<4.12",
+    "numpy>=1.26,<2",
+    "scipy>=1.13",
+    "pyarrow>=14",
 ]
 
 [project.scripts]
-HandTracking = "hand_tracker.main:main"
+HandTracking = "HandTracking.main:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["HandTracking*"]

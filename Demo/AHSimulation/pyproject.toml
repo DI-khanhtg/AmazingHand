@@ -7,11 +7,24 @@ requires-python = ">=3.12"
 dependencies = [
     "dora-rs>=0.3.11,<=0.3.13",
     "loop-rate-limiters>=1.1.2",
-    "mink>=0.0.11",
+    "mink==0.0.11",
     "mujoco>=3.3.2",
     "onshape-to-robot>=1.7.5",
     "qpsolvers[quadprog]>=4.7.1",
+    "numpy>=1.26,<2",
+    "scipy>=1.13",
+    "pyarrow>=14",
 ]
 
 [project.scripts]
-AHSimulation = "mj_mink_right.main:main"
+AHSimulation = "AHSimulation.mj_mink_right:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["AHSimulation*"]
+
+[tool.setuptools.package-data]
+AHSimulation = ["AH_Right/mjcf/*.xml", "AH_Right/mjcf/*.json", "AH_Right/mjcf/assets/*.stl", "AH_Left/mjcf/*.xml", "AH_Left/mjcf/*.json", "AH_Left/mjcf/assets/*.stl"]
