@@ -1,8 +1,10 @@
 """Verify trajectory bounds and the SCS0009 telemetry decoder without hardware."""
 import math
 import unittest
+from unittest.mock import Mock, patch
 
 from AmazingHand_Motion import motion_feedback, phase_at_fraction, smooth_fraction
+from AmazingHand_HardwareDemo import SerialFeedbackError
 
 
 class RawController:
@@ -20,6 +22,31 @@ class RawController:
 
 
 class MotionTests(unittest.TestCase):
+    def test_transient_parsing_error_uses_fresh_reply_and_does_not_write(self):
+        c = RawController(status=32)
+        read = Mock(side_effect=[RuntimeError('Parsing error'), (c.raw, 0)])
+        c.read_raw_data_with_error = read
+        with patch('AmazingHand_Motion.time.sleep'):
+            row = motion_feedback(c, 4, .5)
+        self.assertEqual(read.call_count, 2)
+        self.assertEqual(row['status'], 32)  # A real overload still reaches the cutoff.
+        self.assertEqual(row['goal'], .5)
+
+    def test_persistent_parsing_error_is_bounded_and_identifies_servo(self):
+        c = RawController()
+        c.read_raw_data_with_error = Mock(side_effect=RuntimeError('Parsing error'))
+        with patch('AmazingHand_Motion.time.sleep'), \
+             self.assertRaisesRegex(SerialFeedbackError, 'ID 7:.*3 attempts'):
+            motion_feedback(c, 7, 0)
+        self.assertEqual(c.read_raw_data_with_error.call_count, 3)
+
+    def test_other_serial_errors_are_not_retried(self):
+        c = RawController()
+        c.read_raw_data_with_error = Mock(side_effect=RuntimeError('port disconnected'))
+        with self.assertRaisesRegex(RuntimeError, 'port disconnected'):
+            motion_feedback(c, 1, 0)
+        self.assertEqual(c.read_raw_data_with_error.call_count, 1)
+
     def test_curve_has_smooth_ends_monotonic_progress_and_bounded_peak_speed(self):
         fractions = [smooth_fraction(i/1000) for i in range(1001)]
         self.assertEqual((fractions[0], fractions[-1]), (0, 1))

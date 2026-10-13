@@ -116,11 +116,23 @@ class GripCyclesTests(unittest.TestCase):
         self.assertTrue(all(abs(a-b) < 1e-9 for a,b in zip(c.positions,c.goals)))
 
     def test_smooth_profile_paces_slower_motor_with_bounded_tracking_lead(self):
-        c = TrackingController(rate=12)
-        output = self.run_fake(c, open_hold=True, speed_deg_s=40, motion_profile='smooth', end_tolerance=4)
-        self.assertIn('OPEN_HOLD_CONFIRMED', output)
-        self.assertLessEqual(math.degrees(c.maximum_lead), 6.00001)
-        self.assertEqual(c.torque, [1]*8)
+        for speed in (40, 80):
+            with self.subTest(speed=speed):
+                c = TrackingController(rate=12)
+                output = self.run_fake(c, open_hold=True, speed_deg_s=speed, motion_profile='smooth', end_tolerance=4)
+                self.assertIn('OPEN_HOLD_CONFIRMED', output)
+                self.assertLessEqual(math.degrees(c.maximum_lead), 6.00001)
+                self.assertEqual(c.torque, [1]*8)
+
+    def test_persistent_motion_parsing_failure_releases_every_motor(self):
+        class ParsingController(FakeController):
+            def read_raw_data_with_error(self, i, address, length):
+                raise RuntimeError('Parsing error')
+        c = ParsingController()
+        with patch.object(motion.time, 'sleep'), \
+             self.assertRaisesRegex(RuntimeError, 'ID 1:.*3 attempts'):
+            self.run_fake(c, open_hold=True, speed_deg_s=80, motion_profile='smooth')
+        self.assertEqual(c.torque, [0]*8)
 
     def test_smooth_profile_still_stops_on_stall_disturbance_and_other_faults(self):
         cases = [(TrackingController(stuck_id=1), 'no position progress'),

@@ -1,0 +1,19 @@
+{
+  "sha256": "a024e59df83d9111ac3040fec6e41b243a18752132e837939b9a5c1e8233f7ca",
+  "bytes": 27842136,
+  "input_shape": [
+    150,
+    150,
+    3
+  ],
+  "color_mode": "RGB",
+  "resize": "nearest",
+  "pixel_scale": 0.00392156862745098,
+  "class_names": [
+    "paper",
+    "rock",
+    "scissors"
+  ],
+  "training_notebook": "training-hand.ipynb",
+  "download_url": "https://raw.githubusercontent.com/DI-khanhtg/AmazingHand/main/models/rps.h5"
+}

@@ -1,8 +1,9 @@
 """Smooth path interpolation and one-packet SCS0009 motion telemetry."""
 
 import math
+import time
 
-from AmazingHand_HardwareDemo import read_one
+from AmazingHand_HardwareDemo import SerialFeedbackError, read_one
 
 
 def smooth_fraction(phase):
@@ -28,6 +29,29 @@ def phase_at_fraction(fraction):
 
 
 def motion_feedback(controller, servo_id, goal):
+    """Retry transient packet parsing failures without resending a motion command.
+
+    A fresh complete reply is required within three attempts. Valid servo alarm
+    bits and malformed/out-of-range decoded data are never retried or hidden.
+    The caller sends no further goals while this read is being retried.
+    """
+    for attempt in range(3):
+        try:
+            return _motion_feedback_once(controller, servo_id, goal)
+        except RuntimeError as exc:
+            if str(exc).strip().lower() != 'parsing error':
+                raise
+            if attempt == 2:
+                raise SerialFeedbackError(
+                    f'ID {servo_id}: motion telemetry parsing failed on all 3 attempts; '
+                    'stopping servos. Check power and USB/TTL wiring.'
+                ) from exc
+            print(f'ID {servo_id}: transient telemetry parsing error; '
+                  f'retrying read {attempt + 2}/3 (no new motion command).', flush=True)
+            time.sleep(.01)
+
+
+def _motion_feedback_once(controller, servo_id, goal):
     """Read position/load/voltage/temperature/status in one read-only packet.
 
     SCS0009 control table: 56..65; position uses rustypot's SI conversion

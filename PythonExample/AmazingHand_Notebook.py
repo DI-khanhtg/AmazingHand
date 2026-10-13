@@ -99,6 +99,10 @@ class NotebookHand:
     def close_all(self):
         self._hold(self.targets(), 'CLOSE_ALL')
 
+    def scissors(self):
+        """Fully use the calibrated opening endpoints, without V spread offsets."""
+        self._hold(self.targets(('index', 'middle')), 'SCISSORS')
+
     def v_sign(self):
         angles = v_targets(self.side, self.open_extensions[0], self.spread)
         delta = self.open_extensions[1] - self.open_extensions[0]

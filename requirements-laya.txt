@@ -1,0 +1,10 @@
+laya==0.4.3
+torch==2.14.1
+transformers==4.57.6
+numpy==1.26.4
+scipy==1.16.1
+rustypot==1.11.0
+pyserial>=3.5,<4
+ipykernel>=6,<8
+nbformat>=5.10,<6
+packaging>=24

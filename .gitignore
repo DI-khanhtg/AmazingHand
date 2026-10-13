@@ -5,3 +5,8 @@ __pycache__/
 Demo/out/
 .tools/
 .ipynb_checkpoints/
+logs/
+input/
+models/*
+!models/rps.h5
+!models/rps.metadata.json
