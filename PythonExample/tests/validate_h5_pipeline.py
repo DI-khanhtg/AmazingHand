@@ -74,7 +74,7 @@ class ReplayCamera:
 notebook=nbformat.read('amazinghand_rps_game.ipynb',4)
 ns={'__name__':'__main__'}
 try:
-    for index,cell in enumerate(c for c in notebook.cells if c.cell_type=='code'):
+    for index,cell in enumerate(c for c in notebook.cells if c.cell_type=='code' and 'manual-pose' not in c.metadata.get('tags', [])):
         source = cell.source.replace('ROBOT_ENABLED = True', 'ROBOT_ENABLED = False') if index == 1 else cell.source
         if index==3:
             ns['config'].robot_enabled=False

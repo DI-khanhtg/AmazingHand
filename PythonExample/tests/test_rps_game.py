@@ -287,6 +287,7 @@ class GameTests(unittest.TestCase):
                 patch.object(cv2,'getWindowProperty',return_value=1), \
                 patch.object(cv2,'waitKey',side_effect=[ord('1'),ord('2'),ord('3')]):
             for move in rps.MOVES:
+                display.begin_confirmation()
                 display.show(frame,'VALIDATE',force=True)
                 self.assertEqual(display.confirmed_move,move)
 
@@ -296,8 +297,35 @@ class GameTests(unittest.TestCase):
         display=rps.GameDisplay(self.config)
         display.confirming=True
         for index,move in enumerate(rps.MOVES):
+            display.begin_confirmation()
             display._mouse(cv2.EVENT_LBUTTONUP,70+index*225,970,0,None)
             self.assertEqual(display.confirmed_move,move)
+
+    def test_confirmation_is_accepted_at_reveal_before_capture_and_motor_completion(self):
+        self.config.require_confirmation=True
+        display=rps.GameDisplay(self.config)
+        self.game.display=display
+        phase=[]
+        def show(frame,state,*args,**kwargs):
+            if state=='REVEAL' and display.confirmed_move is None:
+                self.assertTrue(display.confirming)
+                self.assertEqual(self.events.count('recognize'),0)
+                self.assertEqual(self.events.count('choose'),1)
+                display.confirmed_move='scissors'
+                phase.append(state)
+        original=self.robot.execute_move
+        def slow_move(move):
+            time.sleep(.04)
+            return original(move)
+        self.robot.execute_move=slow_move
+        with patch.object(display,'show',side_effect=show):
+            record=self.play()
+        self.assertEqual(phase,['REVEAL'])
+        self.assertTrue(record['robot_confirmed'])
+        self.assertEqual(record['human_move'],'scissors')
+        self.assertEqual(record['model_human_move'],'rock')
+        self.assertEqual(record['result'],'HUMAN_WIN')
+        self.assertFalse(display.confirming)
 
     def test_app_reset_reuses_resources_and_resets_player_without_rerunning_cell(self):
         self.display.wait_action.side_effect=['start','start','start','reset','start','quit']

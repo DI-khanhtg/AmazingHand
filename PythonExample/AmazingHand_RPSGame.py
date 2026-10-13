@@ -432,6 +432,9 @@ class GameDisplay:
             text(self.button_text, sx+20, height-105, .85)
         if self.enter_prompt:
             text(self.enter_prompt, sx, height-110, .68, (100,225,150))
+        if self.confirming:
+            hint = f'DA CHON: {self.confirmed_move.upper()}' if self.confirmed_move else 'XAC NHAN: 1:R / 2:P / 3:S'
+            text(hint, sx, height-165, .65, (100,225,150))
         if self.confirming and self.config.show_confirmation_buttons:
             text('XAC NHAN NUOC CUA BAN:', 50, height-150, .65, (100, 225, 150))
             for index, label in enumerate(('1: ROCK', '2: PAPER', '3: SCISSORS')):
@@ -457,7 +460,7 @@ class GameDisplay:
                     self.action = 'reset'
                 if self.enter_prompt and key == 13:
                     self.clicked = True
-                if self.confirming and key in (ord('1'), ord('2'), ord('3')):
+                if self.confirming and self.confirmed_move is None and key in (ord('1'), ord('2'), ord('3')):
                     self.confirmed_move = MOVES[key-ord('1')]
                 if key in (13, 32) and self.button_text:
                     self.clicked = True
@@ -487,7 +490,7 @@ class GameDisplay:
             elif width-250 <= x <= width-40:
                 self.action = 'quit'
             return
-        if event == cv2.EVENT_LBUTTONUP and self.confirming and self.config.show_confirmation_buttons:
+        if event == cv2.EVENT_LBUTTONUP and self.confirming and self.confirmed_move is None and self.config.show_confirmation_buttons:
             for index, move in enumerate(MOVES):
                 if 50+index*225 <= x <= 260+index*225 and self.config.window_height-135 <= y <= self.config.window_height-85:
                     self.confirmed_move = move
@@ -497,9 +500,13 @@ class GameDisplay:
                 and self.config.window_height-155 <= y <= self.config.window_height-75):
             self.clicked = True
 
+    def begin_confirmation(self):
+        self.confirming, self.confirmed_move = True, None
+
     def confirm_move(self, game, record):
         """Bắt buộc người chơi xác nhận sau khi nước robot đã khóa và thực hiện."""
-        self.confirming, self.confirmed_move = True, None
+        if not self.confirming:
+            self.begin_confirmation()
         buttons, container, events, poll = [], None, None, None
         try:
             while self.confirmed_move is None:
@@ -963,6 +970,8 @@ class RPSGame:
             self._show('Da khoa nuoc robot', force=True)
             self._transition('REVEAL')
             self.detector.reset()
+            if self.config.require_confirmation:
+                self.display.begin_confirmation()
             self._show('RA TAY!', robot=decision.robot_move, force=True)
             revealed = time.monotonic()
             self.motor_future = self.pool.submit(self.robot_controller.execute_move, decision.robot_move)
@@ -1054,6 +1063,7 @@ class RPSGame:
                 record['error'] += f'; lỗi nhả torque: {stop_error}'
         finally:
             self.detector.reset()
+            self.display.confirming = False
             self.display.close()
             self.busy = False
             self.state = 'READY' if not self.closed else 'CLOSED'
