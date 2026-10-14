@@ -15,10 +15,11 @@ from AmazingHand_Motion import motion_feedback, smooth_fraction, phase_at_fracti
 def run_cycles(controller, count=5, dry_run=False, ignore_low_voltage=False, allow_voltage_warning=False, end_tolerance=3, close_hold=False, open_hold=False, custom_target_degrees=None, pose_label='CUSTOM', speed_deg_s=4, motion_profile='linear'):
     if not math.isfinite(speed_deg_s) or speed_deg_s <= 0:
         raise ValueError('Speed must be a finite positive number of degrees per second.')
-    if motion_profile not in ('linear', 'smooth'):
-        raise ValueError('Motion profile must be linear or smooth.')
+    if motion_profile not in ('linear', 'smooth', 'fast'):
+        raise ValueError('Motion profile must be linear, smooth or fast.')
     smooth = motion_profile == 'smooth'
-    update_interval = .02 if smooth else .1
+    fast = motion_profile == 'fast'
+    update_interval = .02 if smooth or fast else .1
     if close_hold and open_hold:
         raise ValueError('Choose only one hold pose.')
     if custom_target_degrees is not None and (close_hold or open_hold):
@@ -130,7 +131,7 @@ def run_cycles(controller, count=5, dry_run=False, ignore_low_voltage=False, all
             pending_since = [None] * len(ids)
             # Dense smooth updates use the already-tested 6-degree tracking
             # horizon throughout, retaining the independent 8-degree cutoff.
-            tracking_leads = [math.radians(6 if smooth else 4)] * len(ids)
+            tracking_leads = [math.radians(6 if smooth or fast else 4)] * len(ids)
             adjusted = False
             while True:
                 now = time.monotonic()
@@ -204,6 +205,7 @@ def run_cycles(controller, count=5, dry_run=False, ignore_low_voltage=False, all
             feedback = wait_for_endpoint(lambda: check(destination), end_tolerance, time.sleep)
             error = max(abs(math.degrees(row['position'] - row['goal'])) for row in feedback)
             print(f'{label}_CONFIRMED: all eight motors within {error:.2f} deg of target.', flush=True)
+            print(f'{label}_MOTION_TIME: {time.monotonic()-began:.3f} s.', flush=True)
 
         try:
             start = [rows[i]['position'] for i in ids]
@@ -221,8 +223,8 @@ def run_cycles(controller, count=5, dry_run=False, ignore_low_voltage=False, all
             check(start)
             if hold_pose:
                 move(hold_pose, pose_label if hold_pose == 'custom' else f'{hold_pose.upper()}_HAND')
-                for _ in range(20):
-                    time.sleep(.1)
+                for _ in range(4 if fast else 20):
+                    time.sleep(.05 if fast else .1)
                     check(targets[hold_pose], tolerance=end_tolerance)
             else:
                 move('open', 'INITIAL_OPEN')

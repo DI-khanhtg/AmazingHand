@@ -454,6 +454,29 @@ class GameTests(unittest.TestCase):
 
 
 class AdapterTests(unittest.TestCase):
+    def test_camera_falls_back_to_available_index_without_manual_configuration(self):
+        import cv2
+        config=rps.GameConfig(robot_enabled=False)
+        unavailable=Mock()
+        unavailable.isOpened.return_value=False
+        available=Mock()
+        available.isOpened.return_value=True
+        frame=np.zeros((720,1280,3),np.uint8)
+        available.read.return_value=(True,frame)
+        available.get.return_value=30
+        camera=rps.CameraStream(config)
+        with patch.object(cv2,'VideoCapture',side_effect=[unavailable,available]), \
+                patch.object(rps.threading,'Thread'), \
+                patch.object(camera,'get_frame',return_value=(frame,time.monotonic(),1)), \
+                redirect_stdout(io.StringIO()):
+            camera.open()
+            self.assertEqual(config.camera_id,1)
+            self.assertIs(camera.capture,available)
+            unavailable.release.assert_called_once()
+            available.release.assert_not_called()
+            camera.close()
+            available.release.assert_called_once()
+
     def test_inline_display_creates_one_output_per_round_and_updates_in_place(self):
         display = rps.GameDisplay(rps.GameConfig(display_backend='notebook'))
         frame = np.zeros((100, 160, 3), np.uint8)

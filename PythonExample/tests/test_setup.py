@@ -40,6 +40,19 @@ class SetupTests(unittest.TestCase):
             self.assertEqual(setup.ensure_rps_model(root),root/'models/rps.h5')
         download.assert_not_called()
 
+    def test_hand_adapter_is_preferred_over_other_usb_serial_devices(self):
+        from serial.tools import list_ports
+        devices=[NS(device='COM7',vid=123,description='USB Serial CP210'),
+                 NS(device='COM19',vid=456,description='USB-Enhanced-SERIAL CH343')]
+        with patch.object(list_ports,'comports',return_value=devices):
+            self.assertEqual(setup.choose_serial_port(),'COM19')
+
+    def test_multiple_hand_adapters_are_not_selected_arbitrarily(self):
+        from serial.tools import list_ports
+        devices=[NS(device=f'COM{i}',vid=1,description='CH343') for i in (5,9)]
+        with patch.object(list_ports,'comports',return_value=devices):
+            with self.assertRaises(RuntimeError):setup.choose_serial_port()
+
     def test_missing_model_is_downloaded_once_and_verified(self):
         with tempfile.TemporaryDirectory() as directory:
             root=Path(directory)

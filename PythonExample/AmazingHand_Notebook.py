@@ -26,8 +26,8 @@ class NotebookHand:
             raise ValueError('Specify four closing angles in the range 0-100 degrees (excluding zero).')
         if end_tolerance not in (3, 4, 5):
             raise ValueError('Endpoint tolerance must be 3, 4 or 5 degrees.')
-        if motion_profile not in ('linear', 'smooth'):
-            raise ValueError('Motion profile must be linear or smooth.')
+        if motion_profile not in ('linear', 'smooth', 'fast'):
+            raise ValueError('Motion profile must be linear, smooth or fast.')
         v_targets(side, open_extensions[0], spread)
         self.port = port
         self.open_extensions = tuple(open_extensions)

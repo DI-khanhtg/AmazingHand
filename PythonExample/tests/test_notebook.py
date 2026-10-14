@@ -26,6 +26,8 @@ class NotebookTests(unittest.TestCase):
 import sys
 import time as real_time
 from types import SimpleNamespace
+from serial.tools import list_ports
+list_ports.comports = lambda: [SimpleNamespace(device='COM8', vid=1, description='USB CH343')]
 sys.path.insert(0, str(Path.cwd() / "PythonExample"))
 sys.path.insert(0, str(Path.cwd() / "PythonExample" / "tests"))
 import rustypot

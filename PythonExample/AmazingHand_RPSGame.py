@@ -47,7 +47,7 @@ class GameConfig:
     close_flexions: tuple = (92, 90, 90, 90)
     end_tolerance: int = 4
     allow_voltage_warning: bool = True
-    motion_profile: str = 'smooth'
+    motion_profile: str = 'fast'
     reset_move: str = 'rock'
     device: str = 'auto'
     offline: bool = False
@@ -157,17 +157,22 @@ class CameraStream:
         cap = cv2.VideoCapture(self.config.camera_id, backend)
         if not cap.isOpened():
             cap.release()
-            available = []
+            cap = None
             for index in range(4):
                 if index == self.config.camera_id:
                     continue
                 probe = cv2.VideoCapture(index, backend)
                 if probe.isOpened():
-                    available.append(index)
+                    ok, frame = probe.read()
+                    if ok and frame is not None:
+                        cap = probe
+                        print(f'Camera {self.config.camera_id} không có; tự chọn camera {index}.')
+                        self.config.camera_id = index
+                        break
                 probe.release()
-            raise RuntimeError(f'Không mở được camera {self.config.camera_id}. '
-                               f'Camera khác được nhận: {available}. Sửa camera_id ở Cell 2; '
-                               'đóng app đang chiếm webcam và chạy lại Cell 4.')
+            if cap is None:
+                raise RuntimeError('Không tìm thấy camera đọc được ảnh (đã kiểm tra index 0–3). '
+                                   'Cắm webcam, cấp quyền camera và đóng app đang chiếm webcam, rồi chạy lại Cell 4.')
         for key, value in ((cv2.CAP_PROP_FRAME_WIDTH, self.config.camera_width),
                            (cv2.CAP_PROP_FRAME_HEIGHT, self.config.camera_height),
                            (cv2.CAP_PROP_FPS, self.config.camera_fps), (cv2.CAP_PROP_BUFFERSIZE, 1)):

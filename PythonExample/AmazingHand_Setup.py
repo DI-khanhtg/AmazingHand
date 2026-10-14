@@ -63,11 +63,19 @@ def ensure_dependencies(profile):
 
 
 def choose_serial_port(preferred='auto'):
-    """Không mở cổng; tự chọn chỉ khi có đúng một ứng viên USB serial."""
+    """Ưu tiên adapter CH343 của bàn tay, không phụ thuộc số COM trên máy."""
     from serial.tools import list_ports
     ports = list(list_ports.comports())
     if preferred != 'auto':
         return preferred
+    hand_ports = [p.device for p in ports if 'ch343' in ' '.join(str(getattr(p, key, '') or '')
+                  for key in ('description', 'product', 'interface', 'hwid')).lower()]
+    if len(hand_ports) == 1:
+        print('PASS — Tự nhận adapter bàn tay CH343:', hand_ports[0])
+        return hand_ports[0]
+    if len(hand_ports) > 1:
+        raise RuntimeError(f'Có nhiều adapter CH343: {hand_ports}. Chỉ cắm adapter bàn tay '
+                           'hoặc đặt PORT cụ thể để tránh chọn nhầm thiết bị.')
     candidates = [p.device for p in ports if p.vid is not None or any(
         word in p.description.lower() for word in ('ch343', 'ch340', 'cp210', 'usb', 'ftdi'))]
     if len(candidates) == 1:

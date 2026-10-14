@@ -104,7 +104,27 @@ class GripCyclesTests(unittest.TestCase):
                                 monotonic=lambda: elapsed[0], sleep=sleep)
         with patch.object(demo, 'time', clock), patch.object(demo, 'read_servo', side_effect=lambda c, i: c.row(i)), patch.object(demo, 'read_one', side_effect=lambda c, n, i: c.read(n, i)), patch.object(motion, 'read_one', side_effect=lambda c, n, i: c.read(n, i)), contextlib.redirect_stdout(io.StringIO()) as output:
             demo.run_cycles(controller, count=5, dry_run=dry_run, ignore_low_voltage=ignore_low_voltage, allow_voltage_warning=allow_voltage_warning, end_tolerance=end_tolerance, close_hold=close_hold, open_hold=open_hold, speed_deg_s=speed_deg_s, motion_profile=motion_profile)
+            self.last_elapsed = elapsed[0]
             return output.getvalue()
+
+    def test_fast_profile_reduces_latency_without_relaxing_tracking_cutoff(self):
+        durations={}
+        for profile in ('smooth','fast'):
+            controller=TrackingController(rate=250)
+            output=self.run_fake(controller,open_hold=True,speed_deg_s=250,
+                                 motion_profile=profile,end_tolerance=4)
+            durations[profile]=self.last_elapsed
+            self.assertLessEqual(math.degrees(controller.maximum_lead),6.00001)
+            self.assertIn('HOLD_CONFIRMED',output)
+            self.assertEqual(controller.torque,[1]*8)
+        self.assertLess(durations['fast'],durations['smooth'])
+        self.assertGreater(durations['smooth']-durations['fast'],1.7)
+
+    def test_fast_profile_still_releases_on_stall_or_position_disturbance(self):
+        for controller in (TrackingController(stuck_id=2),TrackingController(disturbance=True)):
+            with self.assertRaises(RuntimeError):
+                self.run_fake(controller,open_hold=True,speed_deg_s=250,motion_profile='fast',end_tolerance=4)
+            self.assertEqual(controller.torque,[0]*8)
 
     def test_fast_trajectory_waits_for_slower_motor_without_increasing_cutoff(self):
         c = TrackingController(rate=12)
